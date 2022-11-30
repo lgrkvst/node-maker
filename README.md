@@ -155,6 +155,23 @@ You will need to initially start Node-RED with the following command (it is the 
 ```
 kill -9 `cat /tmp/node-red.pid`; nohup nice node-red > /dev/null 2>&1 & echo $! > /tmp/node-red.pid
 ```
+#### To auto-restart the Node-RED Instance from VSCode
+If you're using an IDE such as VSCode with node debugging, install [nodemon](https://nodemon.io/). In the project root:
+```
+npm install nodemon
+```
+Then head to your launch.json and add the following:
+```
+"runtimeExecutable": "nodemon",
+```
+Lastly, in you project root, create a file `nodemon.json` containing the following:
+```
+{
+  "watch": ["path/to/your/component"],
+  "ignoreRoot": ["path_to_your_component/!node_modules/"], // if you path contains node_modules
+  "ext": "js, css, html"
+}
+```
 
 #### Tips on writing nodes
 * Because you can crash the runtime; use try... catch liberally in your javascript file(s), then you can avoid having to drop to the shell to restart Node-RED. For example:
